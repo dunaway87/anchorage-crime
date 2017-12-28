@@ -1,0 +1,17 @@
+# Application dependencies
+
+require:
+    - play
+    - org.postgresql -> postgresql 9.4.1212.jre7:
+        force: true
+    - org.geotools -> gt-geometry 18.0
+    - org.geotools -> gt-geojson 18.0
+repositories:
+
+   - openmap:
+       type: iBiblio
+       root: "http://download.osgeo.org/webdav/geotools"
+       contains:
+          - javax.media -> *
+          - org.geotools -> *
+          - jgridshift -> *

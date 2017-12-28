@@ -1,0 +1,126 @@
+body {
+	background-color:#f4f4f4;
+	margin:0;padding:0;
+	background-attachment:fixed;
+	overflow:auto;
+}
+
+
+html, body {
+	height: 100%;
+}
+
+#header {
+	background:rgb(13,37,75,0.8);
+	box-shadow:0px 0px 2px 0 #000;
+	height:38px
+}
+
+#header #logo {
+  height: 30px;
+  padding: 10px;
+  
+  top: 2px;
+  left: 15px;
+  color: rgba(255,248,248,0.9);
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+
+#main, h1 {
+	font-family:Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif
+}
+
+
+#map{
+   position:relative;
+	height:100%;
+	width:100%;
+}
+#map-container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
+}
+#sidebar-container{
+    background: rgba(255,255,255,0.85);
+    position: absolute;
+	 right: 0;
+   border-radius: 10px;
+    width: 350px;
+    z-index: 100;
+    
+    
+}
+
+
+
+
+.select2-dropdown.select2-dropdown--below{
+      width: 250px !important;
+}
+
+.select2-container--default .select2-selection--single{
+   
+    width: 250px; 
+   
+    position: relative;
+}
+
+
+.select2-container--default .select2-selection--single{
+    
+    height: 37px;
+    width: 250px;    
+}
+
+
+
+#main {
+	height:100%;
+	width:100%
+	position:fixed;
+}
+
+
+.ui-widget-header {
+    /* border: 1px solid #e78f08; */
+    background: #3b77a2;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.sidebar {
+    background: #f1f1f1;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.filter {
+  padding-bottom: 18px;
+}
+
+#sidebar-title{
+  padding-bottom: 15px;
+}
+
+
+#map{
+ cursor: url(arrow.cur), auto; !importaint
+// cursor: pointer;
+}
+
+.polygon-button, .polygon-label{
+  display: inline-block;
+}
+.polygon-wrapper{
+ width:90px
+ cursor: pointer;
+
+}
+.polygon-button{
+  float:right
+}

@@ -1,0 +1,29 @@
+<div id="sidebar-title"><h4><b>Anchorage Crime</b></h4></div>
+
+<div class="year-filter filter">
+	<h6>Year</h6>
+	<select class="filter-select year-select" name="state">
+	{{#year.range}}
+	 <option value="{{value}}">{{label}}</option>
+	{{/year.range}}
+	</select>
+</div>
+<div class="crime-filter filter">
+	<h6>Crime</h6>
+	<select class="filter-select crime-select" name="state">
+		{{#code.range}}
+		 <option value="{{value}}">{{label}}</option>
+		{{/code.range}}
+	</select>
+
+</div>
+<div>
+	<div class="polygon-wrapper">
+		<span class="polygon-label">
+			<h6 >Polygon</h6>
+		</span> 
+		<span>
+			<i class="material-icons polygon-button">create</i>
+		</span>
+	</div>
+</div>

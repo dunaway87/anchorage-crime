@@ -1,0 +1,21 @@
+{
+	"libs": {
+		"src": [
+			"public/lib/underscore/underscore-min.js",
+			"public/lib/backbone/backbone-min.js",
+			"public/lib/marionette/backbone.marionette.min.js",
+			"public/lib/modernizr/modernizr.custom.96959.pushstate.js",
+			"public/lib/loglevel/loglevel.min.js",
+			"public/lib/select2/select2.full.min.js",
+
+			"public/lib/backbone.radio/backbone.radio.min.js",
+			"public/lib/mustache/mustache.min.js",
+			"public/lib/leaflet/leaflet-src.js",
+			"public/lib/leaflet.js"
+
+
+		],
+		"dest": "public/js/libs.cat.js",
+		"dist": "public/js/libs.min.js"
+	}
+}

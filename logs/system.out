@@ -1,0 +1,3 @@
+Listening for transport dt_socket at address: 8000
+:: loading settings :: url = jar:file:/programs/play-1.5.0/framework/lib/ivy-2.4.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+~ Server is up and running
