@@ -18,12 +18,13 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 	
 
 	onShow:function(){
-		require.ensure([], function() {
+/*		require.ensure([], function() {
 			require("leaflet/leaflet.css");
 			require("leaflet/leaflet.js");
 			require("leaflet/leaflet-src.js");
+			require("leaflet-draw")
 		});
-
+*/
 		
 
 		this.options.wmsLayer={};
@@ -118,10 +119,24 @@ var MapView = Marionette.View.extend({
 
 
 		that.options.map.addLayer(basemap)
+
+
+     	var drawnItems = new L.FeatureGroup();
+    	that.options.map.addLayer(drawnItems);
+
+		var drawControl = new L.Control.Draw({
+        	edit: {
+           		featureGroup: drawnItems
+        	}
+     	});
+     	that.options.map.addControl(drawControl);
+
+
+
 		var lat;
 		var lon;
 
-		that.options.map.clicked=0;
+	/*	that.options.map.clicked=0;
 		
 
 		that.options.map.on('click', function(e){
@@ -141,7 +156,7 @@ var MapView = Marionette.View.extend({
 		            that.options.map.clicked = 0;
 		        }
 		     }, 300);
-		})
+		})*/
 
 		that.options.map.on('dblclick', function(e){
 		    that.options.map.clicked = 0;
@@ -156,17 +171,23 @@ var MapView = Marionette.View.extend({
 	},
 
 	drawPolygon:function(){
+	   var that = this;
 
-	var modifiedDraw = L.drawLocal.extend({
-         draw: {
-             toolbar: {
-                 buttons: {
-                     polygon: 'Draw an awesome polygon'
-                 }
-             }
-         }
+       that.options.map.on(L.Draw.Event.CREATED, function (e) {
+	       var type = e.layerType;
+		   var layer = e.layer;
+		   if (type === 'marker') {
+		       // Do marker specific actions
+		   }
+	   // Do whatever else you need to. (save to db; add to map etc)
+	       that.options.map.addLayer(layer);
+      });
+	  that.options.map.on('draw:edited', function (e) {
+         var layers = e.layers;
+         layers.eachLayer(function (layer) {
+             //do whatever you want; most likely save back to db
+         });
      });
-
 	},
 
 

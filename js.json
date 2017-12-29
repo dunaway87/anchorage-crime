@@ -9,9 +9,7 @@
 			"public/lib/select2/select2.full.min.js",
 
 			"public/lib/backbone.radio/backbone.radio.min.js",
-			"public/lib/mustache/mustache.min.js",
-			"public/lib/leaflet/leaflet-src.js",
-			"public/lib/leaflet.js"
+			"public/lib/mustache/mustache.min.js"
 
 
 		],
