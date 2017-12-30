@@ -111,7 +111,49 @@ public class Application extends Controller {
 		renderJSON(filters);
 	}
 
-
+	public static void getPolygonData(Integer year, Integer crime, String polygon){
+		Connection conn = new DatabaseUtils().getConnection();
+		JsonObject obj = new JsonObject();
+		JsonArray array = new JsonArray();
+		String[] coords = polygon.split(",");
+		String lastCoord = coords[0];
+		polygon= polygon+","+ lastCoord;
+		
+		try{
+			String sql = "Select count(*), extract(year from date)  from crime where ST_Contains(ST_SetSrid(ST_GeomFromText('Polygon(("+polygon+"))'),4326), geom) and classification = "+crime+"and extract(year from date) >2009 group by extract(year from date) order by extract(year from date)  asc";
+			Logger.info(sql);
+			ResultSet rs = conn.prepareStatement(sql).executeQuery();
+			JsonArray years = new JsonArray();
+			JsonArray values = new JsonArray();
+			
+			while(rs.next()){
+				int count = rs.getInt(1);
+				String currentYear = rs.getString(2);
+/*				JsonObject current = new JsonObject();
+				current.addProperty(currentYear, count);
+				array.add(current);*/
+				years.add(currentYear);
+				values.add(count);
+				
+				
+			}
+			
+			obj.add("years", years);
+			obj.add("values", values);
+			
+		} catch (Exception e){
+			Logger.error(e, "Error in getting polygon data");
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				Logger.error(e, "error closing connection");
+			}
+		}
+		
+		
+		renderJSON(obj);
+	}
 
 }
 

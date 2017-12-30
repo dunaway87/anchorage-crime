@@ -50,7 +50,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 			sidebar_view.on('drawPolygon',function(){
 				that.options.map_view.trigger("drawPolygon")
 			});
-
+			sidebar_view.on('removePolygon',function(){
+				that.options.map_view.trigger("removePolygon")
+			});
 			that.options.map_view.addHeatmap();
 
 		})
@@ -67,6 +69,9 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 		})
 		map_view.on("drawPolygon", function(){
 			map_view.drawPolygon();
+		})
+		map_view.on("removePolygon", function(){
+			map_view.removePolygon();
 		})
 
 
@@ -96,7 +101,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 var MapView = Marionette.View.extend({
 	id:'map',
 	template:MapContainerTemplate,
-
+	
 	onShow:function(){	
 		var that = this;
 
@@ -121,42 +126,86 @@ var MapView = Marionette.View.extend({
 		that.options.map.addLayer(basemap)
 
 
-     	var drawnItems = new L.FeatureGroup();
-    	that.options.map.addLayer(drawnItems);
-
-		var drawControl = new L.Control.Draw({
-        	edit: {
-           		featureGroup: drawnItems
-        	}
-     	});
-     	that.options.map.addControl(drawControl);
+that.options.editableLayers = new L.FeatureGroup();
+//that.options.map.addLayer(editableLayers);
 
 
+
+polygon_options = {
+            showArea: false,
+            shapeOptions: {
+                stroke: true,
+                color: '#000000',
+                weight: 4,
+                opacity: 0.5,
+                fill: true,
+                fillColor: null, //same as color by default
+                fillOpacity: 0.2,
+                clickable: true
+            }
+        }
+
+ that.options.polygonDrawer = new L.Draw.Polygon(that.options.map,polygon_options);
+
+
+
+that.options.editableLayers = new L.FeatureGroup();
+that.options.map.addLayer(that.options.editableLayers);
+
+that.options.map.on('draw:created', function(e) {
+  that.options.editableLayers.removeLayer(that.options.layer)
+  that.options.layer = e.layer;
+  that.options.editableLayers.addLayer(that.options.layer);
+
+  var drawnCoords ='';
+
+  for (var i = 0; i < e.layer._latlngs[0].length; i++) {
+    console.log(e.layer._latlngs[0][i]);
+    var lat = e.layer._latlngs[0][i].lat
+    var lng = e.layer._latlngs[0][i].lng
+    if(i != 0){
+    	drawnCoords+= ','
+    }
+    drawnCoords+=lng+" "+lat
+  }
+
+  console.log("draw coords: %o", drawnCoords)
+var year = $(".year-select").val();
+		var code = $(".crime-select").val();
+
+$.get("/polygonData?crime="+code+"&year="+year+"&polygon="+drawnCoords).done(function(data){
+	console.log("data: %o", data)
+
+		$('#popover').show();
+		$('.close-popover').click(function(){
+			$('#popover').hide()
+		})
+var trace1 = {
+  x: data.years,
+  y: data.values,
+  type: 'scatter'
+};
+
+
+var trace = [trace1];
+
+Plotly.newPlot('crime-graph', trace);
+
+
+})
+
+
+});
+
+
+	that.options.map.on("draw:deleted", function(e) {
+    	drawControlEditOnly.removeFrom(map);
+    	drawControlFull.addTo(map);
+	});
 
 		var lat;
 		var lon;
 
-	/*	that.options.map.clicked=0;
-		
-
-		that.options.map.on('click', function(e){
-			
-			that.options.map.clicked = that.options.map.clicked+1;
-			setTimeout(function(){
-		        if(that.options.map.clicked == 1){
-		        	lat = e.latlng.lat;
-					lon = e.latlng.lng;
-		            that.options.point_model=new Backbone.Model({
-						lat:lat,
-						lon:lon
-					})
-
-			
-					//that.trigger('hunt:summary', that.options.point_model);               
-		            that.options.map.clicked = 0;
-		        }
-		     }, 300);
-		})*/
 
 		that.options.map.on('dblclick', function(e){
 		    that.options.map.clicked = 0;
@@ -169,25 +218,16 @@ var MapView = Marionette.View.extend({
 
 
 	},
-
 	drawPolygon:function(){
-	   var that = this;
+	   $('#delete-polygon').show();
+       this.options.polygonDrawer.enable();
 
-       that.options.map.on(L.Draw.Event.CREATED, function (e) {
-	       var type = e.layerType;
-		   var layer = e.layer;
-		   if (type === 'marker') {
-		       // Do marker specific actions
-		   }
-	   // Do whatever else you need to. (save to db; add to map etc)
-	       that.options.map.addLayer(layer);
-      });
-	  that.options.map.on('draw:edited', function (e) {
-         var layers = e.layers;
-         layers.eachLayer(function (layer) {
-             //do whatever you want; most likely save back to db
-         });
-     });
+	},
+	removePolygon:function(){
+	   var that = this;
+	   $('#delete-polygon').hide();
+	   that.options.editableLayers.removeLayer(that.options.layer)
+		$('#popover').hide()
 	},
 
 
@@ -230,10 +270,17 @@ var MapView = Marionette.View.extend({
 	that.options.map.addLayer(that.options.heatmapLayer)
 		
 	})
+
+
 	},
 
 	initialize:function(options){
 		this.options=options
+	},
+	closePopover:function(){
+
+		$('#popover').hide();
+
 	}
 				
 })

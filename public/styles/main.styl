@@ -117,10 +117,54 @@ html, body {
   display: inline-block;
 }
 .polygon-wrapper{
- width:90px
+ width:115px
  cursor: pointer;
 
 }
 .polygon-button{
-  float:right
+  float:left
+}
+#delete-polygon{
+ float:right;
+ display:none;
+
+}
+.label-wrapper{
+  width:50px
+  float:right;
+}
+#popover{
+  box-shadow:0 5px 10px;
+
+  display:none;
+  height:500px;
+  width:500px;
+  background-color:white;
+  position: absolute;
+  bottom:55px;
+  left: 15px;
+  border-radius:6px
+  border-style:solid;
+  border-width:1px;
+  border-color:#888;
+}
+
+#popover h5{
+  padding-top:15px
+  padding-left:10px
+  display:inline-block;
+}
+#popover b{
+  padding-top:6px
+  padding-right:10px
+  font-size:1.5em
+  float:right;
+  cursor:pointer;
+  color:#aaa
+}
+#popover b:hover{
+  color:#333
+}
+#popover hr {
+  margin-top: 10px
 }

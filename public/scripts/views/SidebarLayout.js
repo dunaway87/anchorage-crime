@@ -13,16 +13,19 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 	events:{
 		"change .year-select":"reloadHeatmap",
 		"change .crime-filter":"reloadHeatmap",
-		"click .polygon-wrapper":"drawPolygon"
+		"click .polygon-button":"drawPolygon",
+		"click #delete-polygon":"removePolygon"
 	},
 	reloadHeatmap:function(){
 		this.trigger('reloadHeatmap')
 
 	},
 	drawPolygon:function(){
-
+		this.trigger('removePolygon')
 		this.trigger('drawPolygon')
-
+	},
+	removePolygon:function(){
+		this.trigger('removePolygon')
 	},
 	onShow: function(options){
 		$('.filter-select').select2();

@@ -6,7 +6,7 @@
 GET     /                                       Blank.index
 GET		/crimeGeoJson							Application.getCrimeGeoJson
 GET		/filters								Application.getFilters
-
+GET		/polygonData							Application.getPolygonData
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
