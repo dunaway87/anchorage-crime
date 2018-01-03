@@ -1,5 +1,7 @@
 #{header}
-	
+	<script type="text/javascript">
+		var rootUrl = "${rootUrl.raw()}"
+	</script>
 	<script src="${rootUrl}/public/lib/heatmap.min.js"></script>
     <script src="${rootUrl}/public/lib/leaflet-heatmap.js"></script>
 	<link rel="stylesheet" href="${rootUrl}/public/css/main.css">
@@ -14,10 +16,7 @@
 	
 </div>
 
-<script type="text/javascript">
-var rootUrl = "${rootUrl.raw()}"
 
-</script>
 
 
 #{footer}
