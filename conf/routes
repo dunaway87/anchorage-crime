@@ -9,18 +9,22 @@ GET		/filters								Application.getFilters
 GET		/polygonData							Application.getPolygonData
 
 
-GET		/crime/anchorage		Blank.index
-GET		/crime/				Blank.index
-GET		/crime				Blank.index
+GET		/crime/					Blank.index
+GET		/crime					Blank.index
 GET		/crime/crimeGeoJson		Application.getCrimeGeoJson
-GET   		/crime/polygonData			Application.getPolygonData
+GET   	/crime/polygonData		Application.getPolygonData
 GET		/crime/filters			Application.getFilters
+
+
+
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
+GET     /crime/public/                                staticDir:public
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

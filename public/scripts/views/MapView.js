@@ -41,7 +41,7 @@ module.exports = Backbone.Marionette.LayoutView.extend({
 	showSidebar:function(options){
 		var that = this;
 		var sidebar_view;
-		$.get("/filters").done(function(data){
+		$.get(rootUrl+"/filters").done(function(data){
 			sidebar_view = new SidebarView(data);
 			that.getRegion('sidebar_container').show(sidebar_view);
 			sidebar_view.on('reloadHeatmap', function(){
@@ -173,7 +173,7 @@ that.options.map.on('draw:created', function(e) {
 var year = $(".year-select").val();
 		var code = $(".crime-select").val();
 
-$.get("/polygonData?crime="+code+"&year="+year+"&polygon="+drawnCoords).done(function(data){
+$.get(rootUrl+"/polygonData?crime="+code+"&year="+year+"&polygon="+drawnCoords).done(function(data){
 	console.log("data: %o", data)
 
 		$('#popover').show();
@@ -238,7 +238,7 @@ Plotly.newPlot('crime-graph', trace);
 	if(this.options.heatmapLayer){
 		that.options.map.removeLayer(that.options.heatmapLayer)
 	}
-	$.get('/crimeGeoJson?year='+year+'&crimetype='+code).done(function(response){
+	$.get(rootUrl+'/crimeGeoJson?year='+year+'&crimetype='+code).done(function(response){
 
 		var data = {
 				max: 10,

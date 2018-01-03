@@ -1,20 +1,34 @@
-#{header /}
+#{header}
+	
+	<script src="${rootUrl}/public/lib/heatmap.min.js"></script>
+    <script src="${rootUrl}/public/lib/leaflet-heatmap.js"></script>
+	<link rel="stylesheet" href="${rootUrl}/public/css/main.css">
+	<link rel="stylesheet" href="${rootUrl}/public/css/libs.cat.css">
+	<link rel="shortcut icon" type="image/png" href="${rootUrl}/public/images/favicon.ico">
+#{/header}
 
 <div id="main">
 	
+	
+	
+	
 </div>
 
+<script type="text/javascript">
+var rootUrl = "${rootUrl.raw()}"
+
+</script>
 
 
 #{footer}
 
 #{if minify}
-	<script type="text/javascript" src="/public/js/libs.min.js"></script>
-	<script type="text/javascript" src="/public/js/bundle.js"></script>
+	<script type="text/javascript" src="${rootUrl}/public/js/libs.min.js"></script>
+	<script type="text/javascript" src="${rootUrl}/public/js/bundle.js"></script>
 
 #{/if}
 #{else}
-	<script type="text/javascript" src="/public/js/libs.cat.js"></script>
+	<script type="text/javascript" src="${rootUrl}/public/js/libs.cat.js"></script>
 
 	<script type="text/javascript" src="http://localhost:8080/webpack-dev-server.js"></script>
 	<script type="text/javascript" src="http://localhost:8080/bundle.js"></script>

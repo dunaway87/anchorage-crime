@@ -4,7 +4,7 @@ var MapView = require('views/MapView');
 //Router
 module.exports = Backbone.Router.extend({
 	routes: {
-		'': 'mainView',
+		'crime': 'mainView',
 		
 	},
 	mainView: function() {

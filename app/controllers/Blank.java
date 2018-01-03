@@ -1,5 +1,6 @@
 package controllers;
 
+import play.Logger;
 import play.mvc.Controller;
 
 /**
@@ -8,6 +9,9 @@ import play.mvc.Controller;
 public class Blank extends Controller {
 
 	public static void index() {
+		
+		
+		
 		ControllerArgs.setRenderArgs();
 
 		render();
